@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jason.book.mapper.BookMapper">
+    <resultMap id="BookResultMap" type="com.jason.book.domain.Book">
+        <id column="book_id" jdbcType="INTEGER" property="bookId" />
+        <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+        <result column="book_author" jdbcType="VARCHAR" property="author" />
+        <result column="book_publisher" jdbcType="VARCHAR" property="publisher" />
+        <result column="book_status" jdbcType="INTEGER" property="status" />
+        <result column="book_category" jdbcType="INTEGER" property="categoryId" />
+        <result column="book_price" jdbcType="DECIMAL" property="price" />
+        <result column="create_date" jdbcType="DATE" property="createDate" />
+        <result column="book_description" jdbcType="VARCHAR" property="description" />
+    </resultMap>
+
+    <!--分页查询书籍-->
+    <select id="getBookListByPage" resultMap="BookResultMap">
+        select book_id, book_name, book_author,book_publisher,book_status,book_price,book_description
+        from t_book
+        <where>
+            <if test="bookName != null and bookName!= ''">
+                and book_name like #{bookName,jdbcType=VARCHAR}
+            </if>
+            <if test="author != null and author!= ''">
+                and book_author = #{author,jdbcType=VARCHAR}
+            </if>
+            <if test="categoryId != null and categoryId!= ''">
+                and book_category = #{categoryId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addBook" parameterType="com.jason.book.domain.Book">
+        INSERT INTO t_book (book_name,book_author,book_publisher,book_category,book_price,book_description)
+        VALUES (#{bookName},#{author},#{publisher},#{categoryId},#{price},#{description})
+    </insert>
+</mapper>
