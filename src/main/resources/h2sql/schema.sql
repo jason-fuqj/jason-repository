@@ -1,7 +1,7 @@
 -- 创建数据库
-CREATE DATABASE bookmanage;
+CREATE DATABASE bookdb;
 -- 使用数据库
-use bookmanage;
+use bookdb;
 
 DROP TABLE IF EXISTS t_book;
 -- 创建书籍信息表

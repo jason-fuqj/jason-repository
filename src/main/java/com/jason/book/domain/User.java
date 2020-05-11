@@ -1,6 +1,7 @@
 package com.jason.book.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * TODO: 用户借还实体类
@@ -20,6 +21,8 @@ public class User {
     private Integer status;
     // 注册时间
     private Date createDate;
+    // 用户角色
+    private Set<Role> roles;
 
     public String getEmail() {
         return email;
@@ -27,6 +30,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -38,6 +49,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", status=" + status +
                 ", createDate=" + createDate +
+                ", roles=" + roles +
                 '}';
     }
 
