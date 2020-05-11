@@ -3,6 +3,7 @@ package com.jason.book.mapper;
 import com.jason.book.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface UserMapper {
      * @param password
      * @return
      */
-    User selectByNameAndPwd(String username,String password);
+    JSONObject selectByNameAndPwd(String username, String password);
 
     /**
      * 分页查询用户

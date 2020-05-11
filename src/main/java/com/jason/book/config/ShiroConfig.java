@@ -20,7 +20,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    //不加这个注解不生效，具体不详
     @Bean
     @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {

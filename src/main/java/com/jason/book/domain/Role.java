@@ -9,18 +9,18 @@ import java.util.Set;
  */
 public class Role {
     // 角色id
-    private String id;
+    private String roleId;
     // 角色名称
     private String roleName;
     // 角色对应的权限集合
     private Set<Permissions> permissions;
 
-    public String getId() {
-        return id;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getRoleName() {

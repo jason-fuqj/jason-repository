@@ -1,6 +1,9 @@
 package com.jason.book.service.impl;
 
+import com.jason.book.mapper.UserMapper;
 import com.jason.book.service.IUserService;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,4 +13,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements IUserService {
+    @Autowired
+    UserMapper userMapper;
+
+    @Override
+    public JSONObject getUserByName(String name, String password) {
+
+        return userMapper.selectByNameAndPwd(name,password);
+    }
 }

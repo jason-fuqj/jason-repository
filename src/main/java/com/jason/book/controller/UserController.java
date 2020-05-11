@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    @RequestMapping("/test")
+    public String test(){
+        return "亲爱的翔哥";
+    }
+
+
     @RequestMapping("/login")
     public String login(User user) {
         //添加用户认证信息
