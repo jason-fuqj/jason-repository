@@ -7,20 +7,20 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * TODO:
+ * TODO: 图书服务接口
  * <p>
  * Created by Jason.Fu on 2020/5/10.
  */
 public interface IBookService {
 
-    public int addBook(JSONObject jsonObject);
+    public JSONObject addBook(JSONObject jsonObject);
 
-    public int deleteByPrimaryKey(Long bookId);
+    public JSONObject deleteByPrimaryKey(JSONObject jsonObject);
 
-    public int updateByPrimaryKey(JSONObject jsonObject);
+    public JSONObject updateByPrimaryKey(JSONObject jsonObject);
 
     public JSONObject selectBookListByPage(JSONObject jsonObject);
 
-    public int getCountByCategoryId(JSONObject jsonObject);
+    public int getCount(JSONObject jsonObject);
 
 }

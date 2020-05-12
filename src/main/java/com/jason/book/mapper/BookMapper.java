@@ -26,10 +26,10 @@ public interface BookMapper {
 
     /**
      * 按书籍id删除
-     * @param bookId
+     * @param bookObject
      * @return
      */
-    int deleteByPrimaryKey(Long bookId);
+    int deleteByPrimaryKey(JSONObject bookObject);
 
     /**
      * 更新书籍信息
@@ -50,5 +50,5 @@ public interface BookMapper {
      * @param jsonObject
      * @return
      */
-    int getCountByCategoryId(JSONObject jsonObject);
+    int getCount(JSONObject jsonObject);
 }

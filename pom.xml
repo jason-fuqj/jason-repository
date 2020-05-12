@@ -63,6 +63,11 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <!-- 引入log4j2依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
         <!--        <dependency>-->
 <!--            <groupId>com.h2database</groupId>-->
 <!--            <artifactId>h2</artifactId>-->

@@ -3,7 +3,6 @@ package com.jason.book.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.jason.book.domain.Book;
 import com.jason.book.service.IBookService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,4 +26,23 @@ public class BookController {
         JSONObject jsonObject = (JSONObject) JSONObject.toJSON(book);
         return iBookService.selectBookListByPage(jsonObject);
     }
+
+    @RequestMapping("/add")
+    public JSONObject addBook(Book book){
+        JSONObject jsonObject = (JSONObject) JSONObject.toJSON(book);
+        return iBookService.addBook(jsonObject);
+    }
+
+    @RequestMapping("/delete")
+    public JSONObject deleteBook(Book book){
+        JSONObject jsonObject = (JSONObject) JSONObject.toJSON(book);
+        return iBookService.deleteByPrimaryKey(jsonObject);
+    }
+
+    @RequestMapping("/update")
+    public JSONObject updateBook(Book book){
+        JSONObject jsonObject = (JSONObject) JSONObject.toJSON(book);
+        return iBookService.updateByPrimaryKey(jsonObject);
+    }
+
 }

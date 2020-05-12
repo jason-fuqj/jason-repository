@@ -12,14 +12,17 @@
         <result column="book_price" jdbcType="DECIMAL" property="price" />
         <result column="create_date" jdbcType="DATE" property="createDate" />
         <result column="book_description" jdbcType="VARCHAR" property="description" />
+        <result column="cate_name" jdbcType="VARCHAR" property="categoryName" />
+
     </resultMap>
 
     <!--分页查询书籍-->
     <select id="selectBookListByPage" resultMap="BookResultMap" resultType="com.alibaba.fastjson.JSONObject">
-        select book_id, book_name, book_author,book_publisher,book_status,book_price,book_description
-        from t_book
+        select b.book_id, b.book_name, b.book_author,b.book_publisher,b.book_status,
+               b.book_price,b.book_description,c.cate_name
+        from t_book b,t_category c
         <where>
-            1 = 1
+            b.book_category = c.cate_id
             <if test="bookName != null and bookName!= ''">
                 and book_name like #{bookName,jdbcType=VARCHAR}
             </if>
@@ -39,7 +42,40 @@
         VALUES (#{bookName},#{author},#{publisher},#{categoryId},#{price},#{description})
     </insert>
 
-    <select id="getCountByCategoryId" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
+    <update id="updateByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+        update t_book
+        <trim prefix="set" suffixOverrides=",">
+        <if test="bookName != null and bookName!= ''">
+                book_name = #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null and author!= ''">
+                book_author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="categoryId != null and categoryId!= ''">
+                book_category = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="publisher != null and publisher!= ''">
+                book_publisher = #{publisher,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status!= ''">
+                book_status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="price != null and price!= ''">
+                book_price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="description != null and description!= ''">
+                book_description = #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+            where book_id = #{bookId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+        delete from t_book
+        where book_id = #{bookId,jdbcType=INTEGER}
+    </delete>
+
+    <select id="getCount" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
         select count(*) from t_book
         <where>
             1=1

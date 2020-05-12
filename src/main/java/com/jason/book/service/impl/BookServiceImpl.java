@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * TODO: 书籍服务实现类
+ * TODO: 图书服务实现类
  * <p>
  * Created by Jason.Fu on 2020/5/10.
  */
@@ -22,30 +22,39 @@ public class BookServiceImpl implements IBookService {
     BookMapper bookMapper;
 
     @Override
-    public int addBook(JSONObject jsonObject) {
-        return bookMapper.addBook(jsonObject);
+    public JSONObject addBook(JSONObject jsonObject) {
+        int result =  bookMapper.addBook(jsonObject);
+        JSONObject record = new JSONObject();
+        record.put("result",result);
+        return ResultUtil.successJson(record);
     }
 
     @Override
-    public int deleteByPrimaryKey(Long bookId) {
-        return bookMapper.deleteByPrimaryKey(bookId);
+    public JSONObject deleteByPrimaryKey(JSONObject jsonObject) {
+        int result = bookMapper.deleteByPrimaryKey(jsonObject);
+        JSONObject record = new JSONObject();
+        record.put("result",result);
+        return ResultUtil.successJson(record);
     }
 
     @Override
-    public int updateByPrimaryKey(JSONObject jsonObject) {
-        return bookMapper.updateByPrimaryKey(jsonObject);
+    public JSONObject updateByPrimaryKey(JSONObject jsonObject) {
+        int result = bookMapper.updateByPrimaryKey(jsonObject);
+        JSONObject record = new JSONObject();
+        record.put("result",result);
+        return ResultUtil.successJson(record);
     }
 
     @Override
     public JSONObject selectBookListByPage(JSONObject jsonObject) {
         ResultUtil.fillPageParam(jsonObject);
-        int count = bookMapper.getCountByCategoryId(jsonObject);
+        int count = bookMapper.getCount(jsonObject);
         List<JSONObject> list = bookMapper.selectBookListByPage(jsonObject);
         return ResultUtil.successPage(jsonObject,list,count);
     }
 
     @Override
-    public int getCountByCategoryId(JSONObject jsonObject) {
-        return bookMapper.getCountByCategoryId(jsonObject);
+    public int getCount(JSONObject jsonObject) {
+        return bookMapper.getCount(jsonObject);
     }
 }

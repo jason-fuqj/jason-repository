@@ -1,6 +1,8 @@
 package com.jason.book.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -8,9 +10,9 @@ import java.util.Date;
  * <p>
  * Created by Jason.Fu on 2020/5/9.
  */
-public class Book {
+public class Book implements Serializable {
     // 编号
-    private Long bookId;
+    private Integer bookId;
     // 作者
     private String author;
     // 书名
@@ -43,11 +45,11 @@ public class Book {
                 '}';
     }
 
-    public Long getId() {
+    public Integer getBookId() {
         return bookId;
     }
 
-    public void setId(Long bookId) {
+    public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 

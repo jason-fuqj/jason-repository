@@ -1,6 +1,6 @@
 package com.jason.book.utils;
 
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 import java.util.Set;

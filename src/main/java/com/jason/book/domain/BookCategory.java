@@ -7,23 +7,23 @@ package com.jason.book.domain;
  */
 public class BookCategory {
     // 书目id
-    private Long id;
+    private Integer cateId;
     // 书目名称
-    private String name;
+    private String cateName;
 
-    public Long getId() {
-        return id;
+    public Integer getCateId() {
+        return cateId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCateId(Integer cateId) {
+        this.cateId = cateId;
     }
 
-    public String getName() {
-        return name;
+    public String getCateName() {
+        return cateName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
     }
 }

@@ -7,25 +7,17 @@ package com.jason.book.domain;
  */
 public class Permissions {
     // 权限id
-    private String permissionsId;
+    private Integer id;
     // 权限代码
-    private String permissionsCode;
+    private String permissionCode;
     // 权限名称
-    private String permissionsName;
+    private String permissionName;
     // 菜单代码
     private String menuCode;
     // 菜单名称
     private String menuName;
     // 是否本菜单必选权限
-    private String isRequired;
-
-    public String getPermissionsCode() {
-        return permissionsCode;
-    }
-
-    public void setPermissionsCode(String permissionsCode) {
-        this.permissionsCode = permissionsCode;
-    }
+    private int isRequired;
 
     public String getMenuCode() {
         return menuCode;
@@ -43,27 +35,35 @@ public class Permissions {
         this.menuName = menuName;
     }
 
-    public String getIsRequired() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getIsRequired() {
         return isRequired;
     }
 
-    public void setIsRequired(String isRequired) {
+    public void setIsRequired(int isRequired) {
         this.isRequired = isRequired;
     }
 
-    public String getPermissionsId() {
-        return permissionsId;
+    public String getPermissionCode() {
+        return permissionCode;
     }
 
-    public void setPermissionsId(String permissionsId) {
-        this.permissionsId = permissionsId;
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
     }
 
-    public String getPermissionsName() {
-        return permissionsName;
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setPermissionsName(String permissionsName) {
-        this.permissionsName = permissionsName;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 }

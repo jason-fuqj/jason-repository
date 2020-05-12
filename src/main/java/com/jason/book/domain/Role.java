@@ -1,5 +1,6 @@
 package com.jason.book.domain;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -9,17 +10,21 @@ import java.util.Set;
  */
 public class Role {
     // 角色id
-    private String roleId;
+    private Integer roleId;
     // 角色名称
     private String roleName;
-    // 角色对应的权限集合
-    private Set<Permissions> permissions;
+    // 创建时间
+    private Date createTime;
+    // 更新时间
+    private Date updateTime;
+    // 状态
+    private String status;
 
-    public String getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
@@ -31,11 +36,27 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Set<Permissions> getPermissions() {
-        return permissions;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setPermissions(Set<Permissions> permissions) {
-        this.permissions = permissions;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

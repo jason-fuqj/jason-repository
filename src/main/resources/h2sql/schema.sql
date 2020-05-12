@@ -48,7 +48,7 @@ CREATE TABLE `t_role_permission` (
   `permission_id` int(11) DEFAULT NULL COMMENT '权限id',
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `delete_status` varchar(1) DEFAULT '1' COMMENT '是否有效 0有效，1无效',
+  `delete_status` varchar(1) DEFAULT '0' COMMENT '是否有效 0有效，1无效',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='角色-权限关联表';
 
@@ -60,7 +60,7 @@ CREATE TABLE t_user(
   `user_password` VARCHAR(100) NOT NULL COMMENT '密码',
   `user_email` VARCHAR(50) DEFAULT NULL COMMENT '邮箱',
   `role_id` int(11) DEFAULT '0' COMMENT '角色ID',
-  `user_status` VARCHAR(50) DEFAULT 0 COMMENT '用户状态：0-正常，1-注销',
+  `user_status` VARCHAR(1) DEFAULT '0' COMMENT '用户状态：0-正常，1-注销',
   `create_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (user_id)
 )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET = utf8 COMMENT ='用户信息表';

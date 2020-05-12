@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class User {
     // 用户ID
-    private Long id;
+    private Integer userId;
     // 用户名
     private String userName;
     // 登录密码
@@ -43,7 +43,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -53,12 +53,12 @@ public class User {
                 '}';
     }
 
-    public Long getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
