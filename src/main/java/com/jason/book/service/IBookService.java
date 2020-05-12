@@ -1,5 +1,6 @@
 package com.jason.book.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jason.book.domain.Book;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,14 +13,14 @@ import java.util.List;
  */
 public interface IBookService {
 
-    public int addBook(Book book);
+    public int addBook(JSONObject jsonObject);
 
     public int deleteByPrimaryKey(Long bookId);
 
-    public int updateByPrimaryKey(Book book);
+    public int updateByPrimaryKey(JSONObject jsonObject);
 
-    public List<Book> selectBookListByPage(Long categoryId,int pageNumber,int PageSize);
+    public JSONObject selectBookListByPage(JSONObject jsonObject);
 
-    public int getCountByCategoryId(Long categoryId);
+    public int getCountByCategoryId(JSONObject jsonObject);
 
 }

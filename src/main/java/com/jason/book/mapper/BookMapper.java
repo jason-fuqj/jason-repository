@@ -1,5 +1,6 @@
 package com.jason.book.mapper;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jason.book.domain.Book;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,10 +19,10 @@ public interface BookMapper {
 
     /**
      * 添加书籍
-     * @param book
+     * @param bookObject
      * @return
      */
-    int addBook(Book book);
+    int addBook(JSONObject bookObject);
 
     /**
      * 按书籍id删除
@@ -32,24 +33,22 @@ public interface BookMapper {
 
     /**
      * 更新书籍信息
-     * @param book
+     * @param bookObject
      * @return
      */
-    int updateByPrimaryKey(Book book);
+    int updateByPrimaryKey(JSONObject bookObject);
 
     /**
-     * 根据书目类别分页查询
-     * @param categoryId 书目类别
-     * @param pageNumber 当前页数
-     * @param PageSize 每页显示数量
+     * 分页查询图书
+     * @param jsonObject
      * @return
      */
-    List<Book> selectBookListByPage(@Param("categoryId") Long categoryId, @Param("pageNumber") int pageNumber, @Param("pageSize") int PageSize);
+    List<JSONObject> selectBookListByPage(JSONObject jsonObject);
 
     /**
-     * 根据书目类别查询总数
-     * @param categoryId 书目类别
+     * 查询书籍总数
+     * @param jsonObject
      * @return
      */
-    int getCountByCategoryId(@Param("categoryId") Long categoryId);
+    int getCountByCategoryId(JSONObject jsonObject);
 }

@@ -1,8 +1,10 @@
 package com.jason.book.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jason.book.domain.Book;
 import com.jason.book.mapper.BookMapper;
 import com.jason.book.service.IBookService;
+import com.jason.book.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,8 @@ public class BookServiceImpl implements IBookService {
     BookMapper bookMapper;
 
     @Override
-    public int addBook(Book book) {
-        return bookMapper.addBook(book);
+    public int addBook(JSONObject jsonObject) {
+        return bookMapper.addBook(jsonObject);
     }
 
     @Override
@@ -30,17 +32,20 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public int updateByPrimaryKey(Book book) {
-        return bookMapper.updateByPrimaryKey(book);
+    public int updateByPrimaryKey(JSONObject jsonObject) {
+        return bookMapper.updateByPrimaryKey(jsonObject);
     }
 
     @Override
-    public List<Book> selectBookListByPage(Long categoryId, int pageNumber, int PageSize) {
-        return bookMapper.selectBookListByPage(categoryId,pageNumber,PageSize);
+    public JSONObject selectBookListByPage(JSONObject jsonObject) {
+        ResultUtil.fillPageParam(jsonObject);
+        int count = bookMapper.getCountByCategoryId(jsonObject);
+        List<JSONObject> list = bookMapper.selectBookListByPage(jsonObject);
+        return ResultUtil.successPage(jsonObject,list,count);
     }
 
     @Override
-    public int getCountByCategoryId(Long categoryId) {
-        return bookMapper.getCountByCategoryId(categoryId);
+    public int getCountByCategoryId(JSONObject jsonObject) {
+        return bookMapper.getCountByCategoryId(jsonObject);
     }
 }
