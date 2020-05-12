@@ -1,5 +1,7 @@
 package com.jason.book.config;
 
+import com.jason.book.constants.Constants;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -13,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO:
+ * TODO: 权限认证配置
  * <p>
  * Created by Jason.Fu on 2020/5/11.
  */
@@ -32,6 +34,7 @@ public class ShiroConfig {
     @Bean
     public ShiroRealm myShiroRealm() {
         ShiroRealm shiroRealm = new ShiroRealm();
+        shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return shiroRealm;
     }
 
@@ -61,6 +64,17 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/login");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
+    }
+
+    //设置默认加密方式
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        // 使用md5 算法进行加密
+        hashedCredentialsMatcher.setHashAlgorithmName(Constants.ALGORITHM_NAME_MD5);
+        // 设置散列次数： 意为加密几次
+        hashedCredentialsMatcher.setHashIterations(Constants.HASH_ITERATIONS);
+        return hashedCredentialsMatcher;
     }
 
     //加入注解的使用，不加入这个注解不生效

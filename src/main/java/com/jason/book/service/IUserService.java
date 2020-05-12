@@ -1,7 +1,7 @@
 package com.jason.book.service;
 
 import com.jason.book.domain.User;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * TODO:
@@ -10,5 +10,11 @@ import org.json.JSONObject;
  */
 public interface IUserService {
 
-    JSONObject getUserByName(String name, String password);
+    public JSONObject getUserByName(String userName);
+
+    public int addUser(User user);
+
+    public int deleteByPrimaryKey(Long userId);
+
+    public int updateByPrimaryKey(User user);
 }

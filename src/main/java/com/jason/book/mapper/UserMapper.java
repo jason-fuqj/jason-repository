@@ -3,7 +3,7 @@ package com.jason.book.mapper;
 import com.jason.book.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
 public interface UserMapper {
     /**
      * 添加用户
-     * @param record
+     * @param user
      * @return
      */
-    int addUser(User record);
+    int addUser(User user);
 
     /**
      * 删除用户
@@ -32,18 +32,17 @@ public interface UserMapper {
 
     /**
      * 更新用户信息
-     * @param record
+     * @param user
      * @return
      */
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(User user);
 
     /**
-     * 根据用户名和密码查询
-     * @param username
-     * @param password
+     * 根据用户名查询
+     * @param userName
      * @return
      */
-    JSONObject selectByNameAndPwd(String username, String password);
+    JSONObject selectByName(String userName);
 
     /**
      * 分页查询用户

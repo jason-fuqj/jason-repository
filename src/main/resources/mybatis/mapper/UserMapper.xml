@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jason.book.mapper.UserMapper">
-    <resultMap id="UserResultMap" type="com.jason.book.domain.User">
+    <resultMap id="UserResultMap" type="com.alibaba.fastjson.JSONObject">
         <id column="user_id" jdbcType="INTEGER" property="userId" />
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="user_password" jdbcType="VARCHAR" property="password" />
@@ -12,16 +12,13 @@
         <result column="role_id" jdbcType="INTEGER" property="roleId" />
     </resultMap>
 
-    <!--分页查询书籍-->
-    <select id="selectByNameAndPwd" resultMap="UserResultMap">
-        select user_id, user_name, user_password,user_email,user_status,user_roles
+    <!--根据用户名查询用户-->
+    <select id="selectByName" resultMap="UserResultMap" resultType="com.alibaba.fastjson.JSONObject">
+        select user_id,user_name,user_password,role_id,user_status,user_email
         from t_user
         <where>
             <if test="userName != null and userName!= ''">
                 and user_name = #{userName,jdbcType=VARCHAR}
-            </if>
-            <if test="password != null and password!= ''">
-                and user_password = #{password,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

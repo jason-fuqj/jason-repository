@@ -18,10 +18,10 @@ public interface BookMapper {
 
     /**
      * 添加书籍
-     * @param record
+     * @param book
      * @return
      */
-    int addBook(Book record);
+    int addBook(Book book);
 
     /**
      * 按书籍id删除
@@ -32,10 +32,10 @@ public interface BookMapper {
 
     /**
      * 更新书籍信息
-     * @param record
+     * @param book
      * @return
      */
-    int updateByPrimaryKey(Book record);
+    int updateByPrimaryKey(Book book);
 
     /**
      * 根据书目类别分页查询

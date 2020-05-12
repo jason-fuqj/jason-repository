@@ -1,5 +1,6 @@
 package com.jason.book.config;
 
+import com.alibaba.fastjson.JSONException;
 import com.jason.book.constants.Constants;
 import com.jason.book.domain.Permissions;
 import com.jason.book.domain.Role;
@@ -12,14 +13,14 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 
 /**
- * TODO:
+ * TODO: 授权认证
  * <p>
  * Created by Jason.Fu on 2020/5/11.
  */
@@ -52,18 +53,22 @@ public class ShiroRealm extends AuthorizingRealm {
         if (authenticationToken.getPrincipal() == null) {
             return null;
         }
-        //获取用户信息
-        String name = authenticationToken.getPrincipal().toString();
-        String password = new String((char[]) authenticationToken.getCredentials());
-        JSONObject user = iUserService.getUserByName(name,password);
+        // 获取用户名
+        String userName = authenticationToken.getPrincipal().toString();
+        // 获取用户信息
+        JSONObject user = iUserService.getUserByName(userName);
         if (user == null) {
             //这里返回后会报出对应异常
             throw new UnknownAccountException();
         } else {
+            String password = user.getString("password");
+            // 加[盐] 一般以用户名或随机数为盐
+            ByteSource salt = ByteSource.Util.bytes(userName);
+
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = null;
             try {
-                simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, user.getString("password"), getName());
+                simpleAuthenticationInfo = new SimpleAuthenticationInfo(userName, password, salt, this.getName());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
