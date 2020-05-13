@@ -52,6 +52,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> map = new HashMap<>();
+        // 添加过滤swagger页面
         map.put("/swagger-ui.html", "anon");
         map.put("/swagger-resources/**", "anon");
         map.put("/v2/api-docs", "anon");
@@ -81,7 +82,6 @@ public class ShiroConfig {
         return hashedCredentialsMatcher;
     }
 
-    //加入注解的使用，不加入这个注解不生效
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();

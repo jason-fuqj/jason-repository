@@ -34,7 +34,7 @@ public class LoginController {
     }
 
     @ApiOperation(value = "退出登录",notes = "用户退出登录接口")
-    @PostMapping("logout")
+    @PostMapping("/logout")
     public String logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
