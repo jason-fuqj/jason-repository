@@ -1,7 +1,6 @@
 package com.jason.book.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jason.book.domain.Book;
 import com.jason.book.mapper.BookMapper;
 import com.jason.book.service.IBookService;
 import com.jason.book.utils.ResultUtil;

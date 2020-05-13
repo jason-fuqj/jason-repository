@@ -1,14 +1,12 @@
 package com.jason.book.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jason.book.constants.Constants;
-import com.jason.book.domain.User;
 import com.jason.book.mapper.PermissionMapper;
 import com.jason.book.mapper.RoleMapper;
 import com.jason.book.mapper.UserMapper;
 import com.jason.book.service.IUserService;
-import com.alibaba.fastjson.JSONObject;
 import com.jason.book.utils.ResultUtil;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;

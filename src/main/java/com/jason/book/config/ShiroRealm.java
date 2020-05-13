@@ -1,14 +1,10 @@
 package com.jason.book.config;
 
 import com.alibaba.fastjson.JSONException;
-import com.fasterxml.jackson.annotation.JsonAlias;
+import com.alibaba.fastjson.JSONObject;
 import com.jason.book.constants.Constants;
-import com.jason.book.domain.Permissions;
-import com.jason.book.domain.Role;
-import com.jason.book.domain.User;
 import com.jason.book.mapper.PermissionMapper;
 import com.jason.book.mapper.UserMapper;
-import com.jason.book.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,7 +12,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
