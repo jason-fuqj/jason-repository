@@ -1,5 +1,7 @@
 package com.jason.book.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * TODO: 书目实体类
  * <p>
@@ -7,8 +9,10 @@ package com.jason.book.domain;
  */
 public class BookCategory {
     // 书目id
+    @ApiModelProperty(value = "书目id", name = "cateId")
     private Integer cateId;
     // 书目名称
+    @ApiModelProperty(value = "书目名称", name = "cateName")
     private String cateName;
 
     public Integer getCateId() {

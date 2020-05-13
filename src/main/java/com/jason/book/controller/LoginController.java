@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * <p>
  * Created by Jason.Fu on 2020/5/12.
  */
-@Api(value = "LoginController",tags = "登录模块")
+@Api(value = "LoginController",tags = "登录模块接口")
 @RestController
 public class LoginController {
     @Autowired
@@ -27,7 +27,7 @@ public class LoginController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true ,dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", required = true ,dataType = "string")})
-    @RequestMapping(value = "/login",method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public JSONObject login(User user) {
         JSONObject jsonObject = (JSONObject) JSONObject.toJSON(user);
         return iLoginService.authLogin(jsonObject);

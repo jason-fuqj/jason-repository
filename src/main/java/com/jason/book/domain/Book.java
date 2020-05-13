@@ -1,5 +1,7 @@
 package com.jason.book.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,22 +14,31 @@ import java.util.Date;
  */
 public class Book implements Serializable {
     // 编号
+    @ApiModelProperty(value = "图书ID", name = "bookId")
     private Integer bookId;
     // 作者
+    @ApiModelProperty(value = "作者", name = "author")
     private String author;
     // 书名
+    @ApiModelProperty(value = "图书名称", name = "bookName")
     private String bookName;
     // 出版社
+    @ApiModelProperty(value = "出版社", name = "publisher")
     private String publisher;
     // 入库时间
+    @ApiModelProperty(value = "入库时间", name = "createDate")
     private Date createDate;
     // 状态：0-借出，1-在架
+    @ApiModelProperty(value = "状态", name = "status")
     private Integer status;
     // 图书类别id
-    private Long categoryId;
+    @ApiModelProperty(value = "书目id", name = "categoryId")
+    private Integer categoryId;
     // 价格
+    @ApiModelProperty(value = "价格", name = "price")
     private BigDecimal price;
     // 简介
+    @ApiModelProperty(value = "图书简介", name = "description")
     private String description;
 
     @Override
@@ -93,11 +104,11 @@ public class Book implements Serializable {
         this.status = status;
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>
  * Created by Jason.Fu on 2020/5/12.
  */
-@Api(value = "BookController",tags = "图书模块")
+@Api(value = "BookController",tags = "图书模块接口")
 @RestController
 @RequestMapping("/book")
 public class BookController {

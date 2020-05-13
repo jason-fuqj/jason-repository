@@ -28,4 +28,25 @@
         VALUES (#{userName},#{password},#{roleId},#{email},#{pwdRandom})
     </insert>
 
+    <delete id="deleteByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+        delete from t_user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+        update t_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="email != null and email!= ''">
+                user_email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status!= ''">
+                user_status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="roleId != null and roleId!= ''">
+                role_id = #{roleId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
 </mapper>

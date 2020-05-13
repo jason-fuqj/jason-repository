@@ -1,5 +1,8 @@
 package com.jason.book.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,20 +13,28 @@ import java.util.Set;
  */
 public class User {
     // 用户ID
+    @ApiModelProperty(value = "用户ID", name = "userId")
     private Integer userId;
-    // 用户名
+
+    @ApiModelProperty(value = "用户名", name = "userName",  example = "admin")
     private String userName;
-    // 登录密码
+
+    @ApiModelProperty(value = "登录密码", name = "password",  example = "123456")
     private String password;
-    // 邮箱
+
+    @ApiModelProperty(value = "邮箱", name = "email")
     private String email;
     // 用户状态：0-正常，1-注销
+    @ApiModelProperty(value = "用户状态", name = "status")
     private Integer status;
     // 注册时间
+    @ApiModelProperty(value = "添加时间", name = "createDate")
     private Date createDate;
     // 用户角色
+    @ApiModelProperty(value = "用户角色", name = "roleId")
     private Integer roleId;
 
+    @ApiModelProperty(value = "加密盐", name = "pwdRandom")
     private String pwdRandom;
 
     public String getEmail() {

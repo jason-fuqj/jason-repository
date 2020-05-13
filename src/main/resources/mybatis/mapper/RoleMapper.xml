@@ -12,7 +12,7 @@
     <select id="getRoles" resultMap="RoleResultMap" resultType="com.alibaba.fastjson.JSONObject">
         select role_id,role_name
         from t_role
-        where delete_status = '1'
+        where delete_status = '0'
     </select>
 
     <insert id="addRole" parameterType="com.alibaba.fastjson.JSONObject">

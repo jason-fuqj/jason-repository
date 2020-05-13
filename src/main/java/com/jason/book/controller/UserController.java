@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
  * <p>
  * Created by Jason.Fu on 2020/5/11.
  */
-@Api(value = "UserController",tags = "用户模块")
+@Api(value = "UserController",tags = "用户、借还模块接口")
 @RestController
 @RequestMapping("/user")
 public class UserController {

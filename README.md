@@ -17,8 +17,9 @@
     (4)启动项目，运行BookApplication.java类<p>
 5、打开浏览器，输入：localhost:8080/swagger-ui.html，打开swagger页面<p>
 6、点击页面上的【Authorize】按钮，输入需要认证的token信息“Authorization”<p>
-7、开始访问对应的接口<p>
-
+7、测试账号：<p>
+    管理员：admin/123456，
+    普通用户：jason/123456<p>
 说明：<p>
     1、由于我本地安装H2数据库一直连接不上，最后改用mysql数据库，还请见谅。<p>
     2、由于时间关系，有些功能还未完善。<p>

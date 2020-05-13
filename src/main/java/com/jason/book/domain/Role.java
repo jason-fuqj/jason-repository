@@ -1,5 +1,7 @@
 package com.jason.book.domain;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -10,14 +12,19 @@ import java.util.Set;
  */
 public class Role {
     // 角色id
+    @ApiModelProperty(value = "角色id", name = "roleId")
     private Integer roleId;
     // 角色名称
+    @ApiModelProperty(value = "角色名称", name = "roleName")
     private String roleName;
     // 创建时间
+    @ApiModelProperty(value = "创建时间", name = "createTime")
     private Date createTime;
     // 更新时间
+    @ApiModelProperty(value = "更新时间", name = "updateTime")
     private Date updateTime;
     // 状态
+    @ApiModelProperty(value = "角色状态", name = "status")
     private String status;
 
     public Integer getRoleId() {
