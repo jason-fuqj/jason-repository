@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * TODO:
+ * TODO: 用户mapper
  * <p>
  * Created by Jason.Fu on 2020/5/10.
  */
@@ -18,39 +18,38 @@ import java.util.List;
 public interface UserMapper {
     /**
      * 添加用户
-     * @param user
+     * @param jsonObject
      * @return
      */
-    int addUser(User user);
+    int addUser(JSONObject jsonObject);
 
     /**
      * 删除用户
-     * @param userId
+     * @param jsonObject
      * @return
      */
-    int deleteByPrimaryKey(Long userId);
+    int deleteByPrimaryKey(JSONObject jsonObject);
 
     /**
      * 更新用户信息
-     * @param user
+     * @param jsonObject
      * @return
      */
-    int updateByPrimaryKey(User user);
+    int updateByPrimaryKey(JSONObject jsonObject);
 
     /**
      * 根据用户名查询
-     * @param userName
+     * @param jsonObject
      * @return
      */
-    JSONObject selectByName(String userName);
+    JSONObject selectByName(JSONObject jsonObject);
 
     /**
      * 分页查询用户
-     * @param pageNumber
-     * @param pageSize
+     * @param jsonObject
      * @return
      */
-    List<User> selectByPage(@Param("pageNumber") int pageNumber, @Param("pageSize")int pageSize);
+    List<User> selectByPage(JSONObject jsonObject);
 
     /**
      * 查询用户总数

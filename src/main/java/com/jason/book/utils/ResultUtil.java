@@ -3,6 +3,8 @@ package com.jason.book.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.jason.book.constants.Constants;
 import com.jason.book.constants.ErrorCodeEnum;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.util.ByteSource;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ResultUtil {
         JSONObject resultJson = new JSONObject();
         resultJson.put("code", errorEnum.getErrorCode());
         resultJson.put("msg", errorEnum.getErrorMsg());
-        resultJson.put("data", new JSONObject());
+        resultJson.put("data", "[]");
         return resultJson;
     }
 
@@ -112,5 +114,14 @@ public class ResultUtil {
      */
     public static void fillPageParam(final JSONObject paramObject) {
         fillPageParam(paramObject, 10);
+    }
+
+    public static void main(String[] args) {
+        //生成盐（需要存入数据库中）
+        ByteSource salt = ByteSource.Util.bytes("jason");
+        //将原始密码加盐（上面生成的盐），并且用md5算法加密三次，将最后结果存入数据库中
+        String encryptedPwd = new Md5Hash("123456",salt,3).toString();
+
+        System.out.println("salt:" + salt + "，encryptedPwd:" + encryptedPwd);
     }
 }

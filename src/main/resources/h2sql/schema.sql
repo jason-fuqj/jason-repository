@@ -79,7 +79,7 @@ CREATE TABLE t_borrow_history(
   `borrow_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '借还id',
   `user_id` VARCHAR(50) NOT NULL COMMENT '用户id',
   `book_id` VARCHAR(50) NOT NULL COMMENT '书籍id',
-  `borrow_status` VARCHAR(50) NOT NULL COMMENT '借还状态',
+  `borrow_status` VARCHAR(50) NOT NULL COMMENT '借还状态 1-在借  0-已还',
   `borrow_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '借书时间',
   `return_date` TIMESTAMP COMMENT '还书时间',
   PRIMARY KEY (borrow_id)

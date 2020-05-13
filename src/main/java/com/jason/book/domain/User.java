@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * TODO: 用户借还实体类
+ * TODO: 用户实体类
  * <p>
  * Created by Jason.Fu on 2020/5/9.
  */
@@ -22,7 +22,9 @@ public class User {
     // 注册时间
     private Date createDate;
     // 用户角色
-    private Set<Role> roles;
+    private Integer roleId;
+
+    private String pwdRandom;
 
     public String getEmail() {
         return email;
@@ -32,12 +34,20 @@ public class User {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getPwdRandom() {
+        return pwdRandom;
+    }
+
+    public void setPwdRandom(String pwdRandom) {
+        this.pwdRandom = pwdRandom;
     }
 
     @Override
@@ -49,7 +59,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", status=" + status +
                 ", createDate=" + createDate +
-                ", roles=" + roles +
+                ", roleId=" + roleId +
+                ", pwdRandom='" + pwdRandom + '\'' +
                 '}';
     }
 

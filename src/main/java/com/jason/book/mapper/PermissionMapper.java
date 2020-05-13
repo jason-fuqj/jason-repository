@@ -15,11 +15,11 @@ import java.util.List;
 @Mapper
 public interface PermissionMapper {
 
-    List<JSONObject> getPermissionsByPage(JSONObject jsonObject);
+    JSONObject getUserPermission(JSONObject jsonObject);
 
-    int getCount(JSONObject jsonObject);
+    List<JSONObject>  getAllPermission();
 
-    int addPermission(JSONObject jsonObject);
+    List<JSONObject>  getAllMenu();
 
     int deleteByPrimaryKey(JSONObject jsonObject);
 

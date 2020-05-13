@@ -1,10 +1,13 @@
 package com.jason.book.config;
 
 import com.alibaba.fastjson.JSONException;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.jason.book.constants.Constants;
 import com.jason.book.domain.Permissions;
 import com.jason.book.domain.Role;
 import com.jason.book.domain.User;
+import com.jason.book.mapper.PermissionMapper;
+import com.jason.book.mapper.UserMapper;
 import com.jason.book.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -17,7 +20,9 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * TODO: 授权认证
@@ -27,7 +32,10 @@ import java.util.Collection;
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
-    IUserService iUserService;
+    UserMapper userMapper;
+
+    @Autowired
+    PermissionMapper permissionMapper;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -35,12 +43,15 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = null;
         try {
             Session session = SecurityUtils.getSubject().getSession();
-            //查询用户的权限
+            // 查询用户的权限
             JSONObject permission = (JSONObject) session.getAttribute(Constants.SESSION_USER_PERMISSION);
-            //为当前用户设置角色和权限
+            // 为当前用户设置角色和权限
             authorizationInfo = new SimpleAuthorizationInfo();
-            authorizationInfo.addStringPermissions((Collection<String>) permission.get("permissionList"));
-
+            Collection<String> collection = (Collection<String>) permission.get("permissionList");
+            List<String> list = new ArrayList<String>(collection);
+            for (int i=0;i<list.size();i++){
+                authorizationInfo.addStringPermission(String.valueOf(list.get(i)));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -49,33 +60,39 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        //加这一步的目的是在Post请求的时候会先进认证，然后在到请求
+        // 加这一步的目的是在Post请求的时候会先进认证，然后在到请求
         if (authenticationToken.getPrincipal() == null) {
             return null;
         }
         // 获取用户名
         String userName = authenticationToken.getPrincipal().toString();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userName",userName);
         // 获取用户信息
-        JSONObject user = iUserService.getUserByName(userName);
+        JSONObject user = userMapper.selectByName(jsonObject);
         if (user == null) {
-            //这里返回后会报出对应异常
+            // 这里返回后会报出对应异常
             throw new UnknownAccountException();
         } else {
             String password = user.getString("password");
-            // 加[盐] 一般以用户名或随机数为盐
-            ByteSource salt = ByteSource.Util.bytes(userName);
 
-            //这里验证authenticationToken和simpleAuthenticationInfo的信息
+            // 这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = null;
             try {
-                simpleAuthenticationInfo = new SimpleAuthenticationInfo(userName, password, salt, this.getName());
+                //将查询到的用户账号和密码存放到 simpleAuthenticationInfo用于后面的权限判断。第三个参数传入用户输入的用户名。
+                simpleAuthenticationInfo = new SimpleAuthenticationInfo(userName, password, this.getName());
+                //设置盐，用来核对密码
+                simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getString("userName")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //session中不需要保存密码
+            // session中不需要保存密码
             user.remove("password");
-            //将用户信息放入session中
+            // 将用户信息放入session中
             SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER_INFO, user);
+            // 查询用户权限
+            JSONObject  permissionList = permissionMapper.getUserPermission(jsonObject);
+            SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER_PERMISSION,permissionList);
             return simpleAuthenticationInfo;
         }
     }

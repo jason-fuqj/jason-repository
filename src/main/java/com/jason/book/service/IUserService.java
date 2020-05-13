@@ -10,11 +10,18 @@ import com.alibaba.fastjson.JSONObject;
  */
 public interface IUserService {
 
-    public JSONObject getUserByName(String userName);
+    public JSONObject getUserByName(JSONObject jsonObject);
 
-    public int addUser(User user);
+    public JSONObject addUser(JSONObject jsonObject);
 
-    public int deleteByPrimaryKey(Long userId);
+    public JSONObject deleteByPrimaryKey(JSONObject jsonObject);
 
-    public int updateByPrimaryKey(User user);
+    public JSONObject updateByPrimaryKey(JSONObject jsonObject);
+
+    public JSONObject getUserPermissions(JSONObject jsonObject);
+
+    public JSONObject getAllPermissions();
+
+    public JSONObject getAllRoles();
+
 }

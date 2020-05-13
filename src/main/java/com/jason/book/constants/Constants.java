@@ -14,7 +14,7 @@ public class Constants {
 	//加密方式
 	public static String ALGORITHM_NAME_MD5 = "md5";
 	//加密次数
-	public static int HASH_ITERATIONS = 2;
+	public static int HASH_ITERATIONS = 3;
 	//session过期时间 ms
 	public static int SESSION_TIME_OUT = 5 * 60 * 1000;
 

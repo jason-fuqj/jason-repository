@@ -52,6 +52,10 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, String> map = new HashMap<>();
+        map.put("/swagger-ui.html", "anon");
+        map.put("/swagger-resources/**", "anon");
+        map.put("/v2/api-docs", "anon");
+        map.put("/webjars/springfox-swagger-ui/**", "anon");
         //登出
         map.put("/logout", "logout");
         //对所有用户认证

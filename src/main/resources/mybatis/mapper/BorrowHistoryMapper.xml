@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jason.book.mapper.BorrowHistoryMapper">
+    <resultMap id="BorrowResultMap" type="com.alibaba.fastjson.JSONObject">
+        <id column="borrow_id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="book_id" jdbcType="INTEGER" property="bookId" />
+        <result column="borrow_date" jdbcType="DATE" property="bDate" />
+        <result column="return_date" jdbcType="DATE" property="rDate" />
+        <result column="borrow_status" jdbcType="INTEGER" property="status" />
+        <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    </resultMap>
+
+    <!--分页查询用户借还记录-->
+    <select id="selectBorrowByPage" resultMap="BorrowResultMap" resultType="com.alibaba.fastjson.JSONObject">
+        select h.borrow_id, h.user_id,h.book_id,h.borrow_date,h.return_date,b.book_name
+        from t_borrow_history h
+        left join t_book b
+             on h.book_id = b.book_id
+        <where>
+            h.user_id = #{userId,jdbcType=INTEGER}
+            ORDER BY h.borrow_date DESC
+            LIMIT #{pageNumber}, #{pageSize}
+        </where>
+    </select>
+
+    <insert id="borrowBook" parameterType="com.alibaba.fastjson.JSONObject" >
+        INSERT INTO t_borrow_history (user_id,book_id,return_date,borrow_status)
+        VALUES (#{userId},#{bookId},null,1)
+    </insert>
+
+    <update id="returnBook" parameterType="com.alibaba.fastjson.JSONObject">
+        update t_borrow_history
+        set borrow_status = 0,return_date = sysdate()
+        where user_id = #{userId,jdbcType=INTEGER}
+        and book_id = #{bookId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getCount" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
+        select count(*) from t_borrow_history
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+</mapper>

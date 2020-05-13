@@ -3,17 +3,17 @@ package com.jason.book.domain;
 import java.util.Date;
 
 /**
- * TODO: 用户借阅历史
+ * TODO: 用户借还历史记录
  * <p>
- * Created by Jason.Fu on 2020/5/9.
+ * Created by Jason.Fu on 2020/5/10.
  */
 public class BorrowHistory {
     // 主键id
-    private Long id;
+    private Integer id;
     // 用户ID
-    private Long userId;
+    private Integer userId;
     // 图书ID
-    private Long bookId;
+    private Integer bookId;
     // 借书时间
     private Date bDate;
     // 还书时间
@@ -33,31 +33,31 @@ public class BorrowHistory {
                 '}';
     }
 
-        public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-        public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-        public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-        public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-        public Long getBookId() {
+    public Integer getBookId() {
         return bookId;
     }
 
-        public void setBookId(Long bookId) {
+    public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 
-        public Date getbDate() {
+    public Date getbDate() {
         return bDate;
     }
 

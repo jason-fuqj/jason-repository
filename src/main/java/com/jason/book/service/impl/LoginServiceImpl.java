@@ -34,7 +34,7 @@ public class LoginServiceImpl implements ILoginService {
         try {
             currentUser.login(token);
             //获取用户信息
-            record = userMapper.selectByName(username);
+            record = userMapper.selectByName(jsonObject);
             record.remove("password");
         } catch (AuthenticationException e) {
             // 账号或密码有误
