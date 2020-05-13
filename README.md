@@ -1,5 +1,5 @@
-# jason-repository
-项目描述：搭建一个图书管理系统，实现功能是后端管理功能。<p>
+# jason-repository操作说明
+项目描述：完成一个图书管理系统，包含对图书的增、删、改、查功能。<p>
 1、开发工具：IntelliJ IDEA<p>
 2、技术框架：
     springboot,
