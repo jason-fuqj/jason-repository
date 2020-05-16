@@ -1,10 +1,10 @@
 package com.jason.book.service.impl;
 
-import com.jason.book.constants.ErrorCodeEnum;
+import com.alibaba.fastjson.JSONObject;
+import com.jason.book.domain.User;
+import com.jason.book.domain.vo.UserVo;
 import com.jason.book.mapper.UserMapper;
 import com.jason.book.service.ILoginService;
-import com.alibaba.fastjson.JSONObject;
-import com.jason.book.utils.ResultUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -25,32 +25,25 @@ public class LoginServiceImpl implements ILoginService {
     UserMapper userMapper;
 
     @Override
-    public JSONObject authLogin(JSONObject jsonObject) {
-        String username = jsonObject.getString("userName");
-        String password = jsonObject.getString("password");
-        JSONObject record = new JSONObject();
+    public User authLogin(UserVo userVo) {
+        String username = userVo.getUserName();
+        String password = userVo.getPassword();
         Subject currentUser = SecurityUtils.getSubject();
+        // 身份认证
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        try {
-            currentUser.login(token);
-            //获取用户信息
-            record = userMapper.selectByName(jsonObject);
-            record.remove("password");
-        } catch (AuthenticationException e) {
-            // 账号或密码有误
-            return ResultUtil.errorJson(ErrorCodeEnum.E_10003);
-        }catch (AuthorizationException e){
-            // 权限不足
-            return ResultUtil.errorJson(ErrorCodeEnum.E_502);
+        // 登录认证
+        currentUser.login(token);
+        //获取用户信息
+        User user = userMapper.selectByName(username);
+        if (user != null){
+            user.setPassword("");
         }
-        return ResultUtil.successJson(record);
+        return user;
     }
 
     @Override
-    public JSONObject logout() {
+    public void logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        JSONObject record = new JSONObject();
-        return ResultUtil.successJson(record);
     }
 }

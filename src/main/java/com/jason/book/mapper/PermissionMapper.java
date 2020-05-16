@@ -1,10 +1,13 @@
 package com.jason.book.mapper;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jason.book.domain.Permissions;
+import com.jason.book.utils.One2Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO:
@@ -15,14 +18,14 @@ import java.util.List;
 @Mapper
 public interface PermissionMapper {
 
-    JSONObject getUserPermission(JSONObject jsonObject);
+    One2Many getUserPermission(String userName);
 
-    List<JSONObject>  getAllPermission();
+    List<Permissions>  getAllPermission();
 
-    List<JSONObject>  getAllMenu();
+    List<Permissions>  getAllMenu();
 
-    int deleteByPrimaryKey(JSONObject jsonObject);
+    int deleteByPrimaryKey(Integer id);
 
-    int updateByPrimaryKey(JSONObject jsonObject);
+    int updateByPrimaryKey(Map paramMap);
 
 }

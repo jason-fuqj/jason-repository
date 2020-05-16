@@ -1,18 +1,24 @@
 package com.jason.book.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jason.book.constants.Constants;
+import com.jason.book.domain.Permissions;
+import com.jason.book.domain.Role;
+import com.jason.book.domain.User;
+import com.jason.book.domain.vo.UserVo;
 import com.jason.book.mapper.PermissionMapper;
 import com.jason.book.mapper.RoleMapper;
 import com.jason.book.mapper.UserMapper;
 import com.jason.book.service.IUserService;
-import com.jason.book.utils.ResultUtil;
+import com.jason.book.utils.One2Many;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: 用户服务实现类
@@ -32,61 +38,53 @@ public class UserServiceImpl implements IUserService {
     RoleMapper roleMapper;
 
     @Override
-    public JSONObject getUserByName(JSONObject jsonObject) {
-        JSONObject record = new JSONObject();
-        record = userMapper.selectByName(jsonObject);
-        return ResultUtil.successJson(record);
+    public User getUserByName(String username) {
+        return userMapper.selectByName(username);
     }
 
     @Override
-    public JSONObject addUser(JSONObject jsonObject) {
+    @Transactional
+    public int addUser(UserVo userVo) {
         // 获取用户名，用于生成盐
-        String userName = jsonObject.getString("userName");
-        String password = jsonObject.getString("password");
+        String password = userVo.getPassword();
         //生成盐（需要存入数据库中）
-        ByteSource salt = ByteSource.Util.bytes(userName);
+        ByteSource salt = ByteSource.Util.bytes(userVo.getUserName());
         //将原始密码加盐（上面生成的盐），并且用md5算法加密三次，将最后结果存入数据库中
         String encryptedPwd = new Md5Hash(password,salt, Constants.HASH_ITERATIONS).toString();
-        jsonObject.put("password",encryptedPwd);
-        jsonObject.put("pwdRandom",salt.toString());
-        int result =  userMapper.addUser(jsonObject);
+        User user = new User();
+        BeanUtils.copyProperties(userVo,user);
+        user.setPassword(encryptedPwd);
+        user.setPwdRandom(salt.toString());
 
-        JSONObject record = new JSONObject();
-        record.put("result",result);
-        return ResultUtil.successJson(record);
+        return userMapper.addUser(user);
     }
 
     @Override
-    public JSONObject deleteByPrimaryKey(JSONObject jsonObject) {
-        int result =  userMapper.deleteByPrimaryKey(jsonObject);
-        JSONObject record = new JSONObject();
-        record.put("result",result);
-        return ResultUtil.successJson(record);
+    @Transactional
+    public int deleteByPrimaryKey(Integer userId) {
+        return userMapper.deleteByPrimaryKey(userId);
     }
 
     @Override
-    public JSONObject updateByPrimaryKey(JSONObject jsonObject) {
-        int result =  userMapper.updateByPrimaryKey(jsonObject);
-        JSONObject record = new JSONObject();
-        record.put("result",result);
-        return ResultUtil.successJson(record);
+    @Transactional
+    public int updateByPrimaryKey(UserVo userVo) {
+        User user = new User();
+        BeanUtils.copyProperties(userVo,user);
+        return userMapper.updateByPrimaryKey(user);
     }
 
     @Override
-    public JSONObject getUserPermissions(JSONObject jsonObject) {
-        JSONObject permission = permissionMapper.getUserPermission(jsonObject);
-        return ResultUtil.successJson(permission);
+    public One2Many getUserPermissions(String userName) {
+        return permissionMapper.getUserPermission(userName);
     }
 
     @Override
-    public JSONObject getAllPermissions() {
-        List<JSONObject> list = permissionMapper.getAllPermission();
-        return ResultUtil.successJson(list);
+    public List<Permissions> getAllPermissions() {
+        return permissionMapper.getAllPermission();
     }
 
     @Override
-    public JSONObject getAllRoles() {
-        List<JSONObject> list = roleMapper.getRoles();
-        return ResultUtil.successJson(list);
+    public List<Role>  getAllRoles() {
+        return roleMapper.getRoles();
     }
 }

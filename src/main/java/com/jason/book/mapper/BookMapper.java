@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO:
@@ -19,36 +20,30 @@ public interface BookMapper {
 
     /**
      * 添加书籍
-     * @param bookObject
+     * @param book
      * @return
      */
-    int addBook(JSONObject bookObject);
+    int addBook(Book book);
 
     /**
      * 按书籍id删除
-     * @param bookObject
+     * @param bookId
      * @return
      */
-    int deleteByPrimaryKey(JSONObject bookObject);
+    int deleteByPrimaryKey(Integer bookId);
 
     /**
      * 更新书籍信息
-     * @param bookObject
+     * @param book
      * @return
      */
-    int updateByPrimaryKey(JSONObject bookObject);
+    int updateByPrimaryKey(Book book);
 
     /**
      * 分页查询图书
-     * @param jsonObject
+     * @param book
      * @return
      */
-    List<JSONObject> selectBookListByPage(JSONObject jsonObject);
+    List<Book> selectBookListByPage(Book book);
 
-    /**
-     * 查询书籍总数
-     * @param jsonObject
-     * @return
-     */
-    int getCount(JSONObject jsonObject);
 }

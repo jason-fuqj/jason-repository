@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: 用户mapper
@@ -18,41 +19,37 @@ import java.util.List;
 public interface UserMapper {
     /**
      * 添加用户
-     * @param jsonObject
+     * @param user
      * @return
      */
-    int addUser(JSONObject jsonObject);
+    int addUser(User user);
 
     /**
      * 删除用户
-     * @param jsonObject
+     * @param userId
      * @return
      */
-    int deleteByPrimaryKey(JSONObject jsonObject);
+    int deleteByPrimaryKey(Integer userId);
 
     /**
      * 更新用户信息
-     * @param jsonObject
+     * @param user
      * @return
      */
-    int updateByPrimaryKey(JSONObject jsonObject);
+    int updateByPrimaryKey(User user);
 
     /**
      * 根据用户名查询
-     * @param jsonObject
+     * @param username
      * @return
      */
-    JSONObject selectByName(JSONObject jsonObject);
+    User selectByName(String username);
 
     /**
      * 分页查询用户
-     * @param jsonObject
+     * @param paramMap
      * @return
      */
-    List<User> selectByPage(JSONObject jsonObject);
+    List<User> selectByPage(Map paramMap);
 
-    /**
-     * 查询用户总数
-     */
-    int getUserCount();
 }

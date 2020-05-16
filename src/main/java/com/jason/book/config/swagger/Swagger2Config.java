@@ -12,6 +12,7 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
+
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -35,6 +37,25 @@ public class Swagger2Config {
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
+    }
+
+    @Bean
+    public UiConfiguration uiConfig() {
+        return UiConfigurationBuilder.builder()
+                .deepLinking(true)
+                .displayOperationId(false)
+                .defaultModelsExpandDepth(-1)
+                .defaultModelExpandDepth(0)
+                .defaultModelRendering(ModelRendering.EXAMPLE)
+                .displayRequestDuration(false)
+                .docExpansion(DocExpansion.NONE)
+                .filter(false)
+                .maxDisplayedTags(null)
+                .operationsSorter(OperationsSorter.ALPHA)
+                .showExtensions(false)
+                .tagsSorter(TagsSorter.ALPHA)
+                .validatorUrl(null)
+                .build();
     }
 
     private List<ApiKey> securitySchemes() {

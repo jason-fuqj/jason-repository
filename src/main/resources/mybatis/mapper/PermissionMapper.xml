@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jason.book.mapper.PermissionMapper">
-    <resultMap id="PermResultMap" type="com.jason.book.utils.One2Many">
+    <resultMap id="One2ManyResultMap" type="com.jason.book.utils.One2Many">
         <id column="user_id" jdbcType="INTEGER" property="userId" />
         <id column="user_name" jdbcType="INTEGER" property="userName" />
         <result column="role_id" jdbcType="VARCHAR" property="roleId" />
@@ -15,7 +15,12 @@
         </collection>
     </resultMap>
 
-    <select id="getUserPermission" resultMap="PermResultMap" parameterType="com.alibaba.fastjson.JSONObject">
+    <resultMap id="PermResultMap" type="com.jason.book.domain.Permissions">
+        <id column="permission_code" property="permissionCode"/>
+        <id column="menu_code" property="menuCode"/>
+    </resultMap>
+
+    <select id="getUserPermission" resultMap="One2ManyResultMap" parameterType="string">
         select
                u.user_id,
                u.user_name,
@@ -31,13 +36,13 @@
             and u.user_status = '0'
     </select>
 
-    <select id="getAllPermission" resultType="com.alibaba.fastjson.JSONObject">
-        SELECT permission_code permissionCode
+    <select id="getAllPermission" resultMap="PermResultMap">
+        SELECT permission_code
         FROM t_permissions
         ORDER BY id
     </select>
-    <select id="getAllMenu" resultType="com.alibaba.fastjson.JSONObject">
-        SELECT menu_code menuCode
+    <select id="getAllMenu" resultMap="PermResultMap">
+        SELECT menu_code
         FROM t_permissions
         ORDER BY id
     </select>

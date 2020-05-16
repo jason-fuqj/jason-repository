@@ -1,6 +1,11 @@
 package com.jason.book.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.jason.book.domain.BorrowHistory;
+import com.jason.book.domain.vo.BorrowHistoryVo;
+import com.jason.book.domain.vo.UserVo;
+import com.jason.book.utils.PageDto;
+
+import java.util.Map;
 
 /**
  * TODO: 借还图书服务接口
@@ -10,24 +15,24 @@ import com.alibaba.fastjson.JSONObject;
 public interface IBorrowService {
 
     /**
-     * 借书
-     * @param jsonObject
+     * 用户借书
+     * @param borrowHistory
      * @return
      */
-    public JSONObject borrowBook(JSONObject jsonObject);
+    public int borrowBook(BorrowHistoryVo borrowHistory);
 
     /**
-     * 还书
-     * @param jsonObject
+     * 用户还书
+     * @param borrowHistory
      * @return
      */
-    public JSONObject returnBook(JSONObject jsonObject);
+    public int returnBook(BorrowHistoryVo borrowHistory);
 
     /**
-     * 分页查询借还记录
-     * @param jsonObject
+     * 分页查询用户借还记录
+     * @param userVo
      * @return
      */
-    public JSONObject selectBorrowHistoryByPage(JSONObject jsonObject);
+    public PageDto<BorrowHistory> selectBorrowHistoryByPage(UserVo userVo);
 
 }

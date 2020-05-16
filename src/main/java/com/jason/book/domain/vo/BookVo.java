@@ -1,18 +1,17 @@
-package com.jason.book.domain;
+package com.jason.book.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
- * TODO:图书实体类
+ * TODO:
  * <p>
- * Created by Jason.Fu on 2020/5/9.
+ * Created by Jason.Fu on 2020/5/16.
  */
-public class Book {
+public class BookVo extends PageVo{
+
     // 编号
     @ApiModelProperty(value = "图书ID", name = "bookId")
     private Integer bookId;
@@ -25,9 +24,6 @@ public class Book {
     // 出版社
     @ApiModelProperty(value = "出版社", name = "publisher")
     private String publisher;
-    // 入库时间
-    @ApiModelProperty(value = "入库时间", name = "createDate")
-    private Date createDate;
     // 状态：0-借出，1-在架
     @ApiModelProperty(value = "状态", name = "status")
     private Integer status;
@@ -40,21 +36,6 @@ public class Book {
     // 简介
     @ApiModelProperty(value = "图书简介", name = "description")
     private String description;
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", author='" + author + '\'' +
-                ", bookName='" + bookName + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", createDate=" + createDate +
-                ", status=" + status +
-                ", categoryId=" + categoryId +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                '}';
-    }
 
     public Integer getBookId() {
         return bookId;
@@ -88,14 +69,6 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -127,5 +100,4 @@ public class Book {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

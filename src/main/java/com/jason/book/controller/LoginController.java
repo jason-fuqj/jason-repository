@@ -1,8 +1,9 @@
 package com.jason.book.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jason.book.domain.User;
+import com.jason.book.domain.vo.UserVo;
 import com.jason.book.service.ILoginService;
+import com.jason.book.utils.JasonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -27,18 +28,26 @@ public class LoginController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true ,dataType = "string"),
             @ApiImplicitParam(name = "password", value = "密码", required = true ,dataType = "string")})
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public JSONObject login(User user) {
-        JSONObject jsonObject = (JSONObject) JSONObject.toJSON(user);
-        return iLoginService.authLogin(jsonObject);
+    @RequestMapping(value = "/login" ,method = {RequestMethod.POST,RequestMethod.GET})
+    public JasonResult login(
+            @RequestParam(name = "userName") String userName,
+            @RequestParam(name = "password") String password
+            ) {
+        UserVo userVo = new UserVo();
+        userVo.setUserName(userName);
+        userVo.setPassword(password);
+        User user = iLoginService.authLogin(userVo);
+        return JasonResult.success(user);
     }
 
     @ApiOperation(value = "退出登录",notes = "用户退出登录接口")
-    @PostMapping("/logout")
-    public String logout() {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "用户名", required = true ,dataType = "string")})
+    @RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
+    public JasonResult logout( @RequestParam(name = "userName") String userName) {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return "/login";
+        return JasonResult.success();
     }
 
 }

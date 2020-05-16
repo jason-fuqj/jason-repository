@@ -1,6 +1,9 @@
 package com.jason.book.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jason.book.domain.User;
+import com.jason.book.domain.vo.UserVo;
+import com.jason.book.utils.JasonResult;
 
 /**
  * TODO: 登录服务接口
@@ -10,14 +13,14 @@ import com.alibaba.fastjson.JSONObject;
 public interface ILoginService {
     /**
      * 登录
-     * @param jsonObject
+     * @param userVo
      * @return
      */
-    JSONObject authLogin(JSONObject jsonObject);
+    User authLogin(UserVo userVo);
 
     /**
      * 退出登录
      */
-    JSONObject logout();
+    void logout();
 
 }

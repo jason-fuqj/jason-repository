@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jason.book.mapper.UserMapper">
-    <resultMap id="UserResultMap" type="com.alibaba.fastjson.JSONObject">
+    <resultMap id="UserResultMap" type="com.jason.book.domain.User">
         <id column="user_id" jdbcType="INTEGER" property="userId" />
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="user_password" jdbcType="VARCHAR" property="password" />
@@ -10,10 +10,12 @@
         <result column="user_status" jdbcType="INTEGER" property="status" />
         <result column="create_date" jdbcType="DATE" property="createDate" />
         <result column="role_id" jdbcType="INTEGER" property="roleId" />
+        <result column="pwd_random" jdbcType="VARCHAR" property="pwdRandom" />
+
     </resultMap>
 
     <!--根据用户名查询用户-->
-    <select id="selectByName" resultMap="UserResultMap" parameterType="com.alibaba.fastjson.JSONObject">
+    <select id="selectByName" resultMap="UserResultMap" parameterType="string">
         select user_id,user_name,user_password,role_id,user_status,user_email,pwd_random
         from t_user
         <where>
@@ -23,17 +25,17 @@
         </where>
     </select>
 
-    <insert id="addUser" parameterType="com.alibaba.fastjson.JSONObject">
+    <insert id="addUser" parameterType="com.jason.book.domain.User">
         INSERT INTO t_user(user_name,user_password,role_id,user_email,pwd_random)
         VALUES (#{userName},#{password},#{roleId},#{email},#{pwdRandom})
     </insert>
 
-    <delete id="deleteByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+    <delete id="deleteByPrimaryKey" parameterType="Integer">
         delete from t_user
         where user_id = #{userId,jdbcType=INTEGER}
     </delete>
 
-    <update id="updateByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+    <update id="updateByPrimaryKey" parameterType="com.jason.book.domain.User">
         update t_user
         <trim prefix="set" suffixOverrides=",">
             <if test="email != null and email!= ''">

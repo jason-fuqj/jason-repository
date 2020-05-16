@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jason.book.mapper.RoleMapper">
-    <resultMap id="RoleResultMap" type="com.alibaba.fastjson.JSONObject">
+    <resultMap id="RoleResultMap" type="com.jason.book.domain.Role">
         <id column="role_id" jdbcType="INTEGER" property="roleId" />
         <result column="role_name" jdbcType="VARCHAR" property="roleName" />
         <result column="delete_status" jdbcType="VARCHAR" property="status" />
     </resultMap>
 
     <!--查询所有角色-->
-    <select id="getRoles" resultMap="RoleResultMap" resultType="com.alibaba.fastjson.JSONObject">
+    <select id="getRoles" resultMap="RoleResultMap" >
         select role_id,role_name
         from t_role
         where delete_status = '0'
     </select>
 
-    <insert id="addRole" parameterType="com.alibaba.fastjson.JSONObject">
+    <insert id="addRole" parameterType="com.jason.book.domain.Role">
         INSERT INTO t_role (role_name)
         VALUES (#{roleName})
     </insert>
 
-    <update id="updateByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+    <update id="updateByPrimaryKey" parameterType="com.jason.book.domain.Role">
         update t_role
         <trim prefix="set" suffixOverrides=",">
             <if test="roleName != null and roleName!= ''">
@@ -33,7 +33,7 @@
             where role_id = #{roleId,jdbcType=INTEGER}
     </update>
 
-    <delete id="deleteByPrimaryKey" parameterType="com.alibaba.fastjson.JSONObject">
+    <delete id="deleteByPrimaryKey" parameterType="Integer">
         delete from t_role
         where role_id = #{roleId,jdbcType=INTEGER}
     </delete>

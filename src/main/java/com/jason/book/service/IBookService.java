@@ -2,9 +2,12 @@ package com.jason.book.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jason.book.domain.Book;
+import com.jason.book.domain.vo.BookVo;
+import com.jason.book.utils.PageDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: 图书服务接口
@@ -13,14 +16,32 @@ import java.util.List;
  */
 public interface IBookService {
 
-    public JSONObject addBook(JSONObject jsonObject);
+    /**
+     * 添加图书
+     * @param book
+     * @return
+     */
+    public int addBook(Book book);
 
-    public JSONObject deleteByPrimaryKey(JSONObject jsonObject);
+    /**
+     * 删除图书
+     * @param bookId
+     * @return
+     */
+    public int deleteByPrimaryKey(Integer bookId);
 
-    public JSONObject updateByPrimaryKey(JSONObject jsonObject);
+    /**
+     * 更新图书信息
+     * @param book
+     * @return
+     */
+    public int updateByPrimaryKey(Book book);
 
-    public JSONObject selectBookListByPage(JSONObject jsonObject);
-
-    public int getCount(JSONObject jsonObject);
+    /**
+     * 分页查询图书信息
+     * @param bookVo
+     * @return
+     */
+    public PageDto<Book> selectBookListByPage(BookVo bookVo);
 
 }

@@ -16,12 +16,12 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
 
-    List<JSONObject> getRoles();
+    List<Role> getRoles();
 
-    int deleteByPrimaryKey(JSONObject jsonObject);
+    int deleteByPrimaryKey(Integer roleId);
 
-    int updateByPrimaryKey(JSONObject jsonObject);
+    int updateByPrimaryKey(Role role);
 
-    int addRole(JSONObject jsonObject);
+    int addRole(Role role);
 
 }

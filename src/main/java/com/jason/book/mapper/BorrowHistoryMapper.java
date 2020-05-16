@@ -1,10 +1,12 @@
 package com.jason.book.mapper;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jason.book.domain.BorrowHistory;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: 借还mapper
@@ -15,11 +17,11 @@ import java.util.List;
 @Mapper
 public interface BorrowHistoryMapper {
 
-    int borrowBook(JSONObject jsonObject);
+    int borrowBook(BorrowHistory borrowHistory);
 
-    int returnBook(JSONObject jsonObject);
+    int returnBook(BorrowHistory borrowHistory);
 
-    List<JSONObject> selectBorrowByPage(JSONObject jsonObject);
+    List<BorrowHistory> selectBorrowByPage(Map paramMap);
 
     int getCount(JSONObject jsonObject);
 

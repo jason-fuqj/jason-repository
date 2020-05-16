@@ -28,16 +28,28 @@ public class BorrowHistory {
     // 借还状态：0-已归还，1-未归还
     @ApiModelProperty(value = "借还状态：0-已归还，1-未归还", name = "status")
     private Integer status;
+    // 书名
+    @ApiModelProperty(value = "书名", name = "bookName")
+    private String bookName;
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "BorrowHistory{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", bookId=" + bookId +
                 ", bDate=" + bDate +
                 ", rDate=" + rDate +
                 ", status=" + status +
+                ", bookName='" + bookName + '\'' +
                 '}';
     }
 

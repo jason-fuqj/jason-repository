@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.apache.shiro.mgt.SecurityManager;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -51,23 +52,25 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String, String> map = new HashMap<>();
-        // 添加过滤swagger页面
-        map.put("/swagger-ui.html", "anon");
-        map.put("/swagger-resources/**", "anon");
-        map.put("/v2/api-docs", "anon");
-        map.put("/webjars/springfox-swagger-ui/**", "anon");
-        //登出
-        map.put("/logout", "logout");
-        //对所有用户认证
-        map.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
         //首页
         shiroFilterFactoryBean.setSuccessUrl("/index");
         //认证不通过跳转到登录页面
         shiroFilterFactoryBean.setUnauthorizedUrl("/login");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+
+        LinkedHashMap<String, String> filtersMap = new LinkedHashMap<>();
+        // 添加过滤swagger页面
+        filtersMap.put("/swagger-ui.html", "anon");
+        filtersMap.put("/swagger-resources/**", "anon");
+        filtersMap.put("/v2/api-docs", "anon");
+        filtersMap.put("/webjars/springfox-swagger-ui/**", "anon");
+        //登出
+        filtersMap.put("/logout", "logout");
+        //对所有用户认证
+        filtersMap.put("/**", "authc");
+
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filtersMap);
         return shiroFilterFactoryBean;
     }
 

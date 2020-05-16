@@ -2,7 +2,10 @@ package com.jason.book.config.exception;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jason.book.constants.ErrorCodeEnum;
-import com.jason.book.utils.ResultUtil;
+import com.jason.book.utils.JasonResult;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
@@ -26,23 +29,20 @@ public class GlobalExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@ExceptionHandler(value = Exception.class)
-	public JSONObject defaultErrorHandler(HttpServletRequest req, Exception e) {
-		String errorPosition = "";
-		//如果错误堆栈信息存在
-		if (e.getStackTrace().length > 0) {
-			StackTraceElement element = e.getStackTrace()[0];
-			String fileName = element.getFileName() == null ? "未找到错误文件" : element.getFileName();
-			int lineNumber = element.getLineNumber();
-			errorPosition = fileName + ":" + lineNumber;
+	public JasonResult defaultErrorHandler(HttpServletRequest req, Exception exception) {
+		if (exception != null) {
+			if (UnknownAccountException.class.isInstance(exception)) {
+				// 账户不存在
+				return JasonResult.fail(ErrorCodeEnum.E_10002);
+			}else if (IncorrectCredentialsException.class.isInstance(exception)) {
+				// 账号或密码错误
+				return JasonResult.fail(ErrorCodeEnum.E_10003);
+			}else if(UnauthenticatedException.class.isInstance(exception)){
+				// 登录已过期
+				return JasonResult.fail(ErrorCodeEnum.E_20001);
+			}
 		}
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("code", ErrorCodeEnum.E_400.getErrorCode());
-		jsonObject.put("msg", ErrorCodeEnum.E_400.getErrorMsg());
-		JSONObject errorObject = new JSONObject();
-		errorObject.put("errorLocation", e.toString() + "    错误位置:" + errorPosition);
-		jsonObject.put("info", errorObject);
-		logger.error("异常", e);
-		return jsonObject;
+		return JasonResult.fail(ErrorCodeEnum.E_20001);
 	}
 
 	/**
@@ -51,8 +51,8 @@ public class GlobalExceptionHandler {
 	 * 所以定义了这个拦截器
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public JSONObject httpRequestMethodHandler() {
-		return ResultUtil.errorJson(ErrorCodeEnum.E_500);
+	public JasonResult httpRequestMethodHandler() {
+		return JasonResult.fail(ErrorCodeEnum.E_500);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
 	 * 常见使用场景是参数校验失败,抛出此错,返回错误信息给前端
 	 */
 	@ExceptionHandler(CommonJsonException.class)
-	public JSONObject commonJsonExceptionHandler(CommonJsonException commonJsonException) {
+	public JasonResult commonJsonExceptionHandler(CommonJsonException commonJsonException) {
 		return commonJsonException.getResultJson();
 	}
 
@@ -69,16 +69,20 @@ public class GlobalExceptionHandler {
 	 * 权限不足报错拦截
 	 */
 	@ExceptionHandler(UnauthorizedException.class)
-	public JSONObject unauthorizedExceptionHandler() {
-		return ResultUtil.errorJson(ErrorCodeEnum.E_502);
+	public JasonResult unauthorizedExceptionHandler() {
+		return JasonResult.fail(ErrorCodeEnum.E_502);
 	}
 
+	@ExceptionHandler(AuthenticationException.class)
+	public JasonResult authenticationException(){
+		return JasonResult.fail(ErrorCodeEnum.E_10003);
+	}
 	/**
 	 * 未登录报错拦截
 	 * 在请求需要权限的接口,而连登录都还没登录的时候,会报此错
 	 */
 	@ExceptionHandler(UnauthenticatedException.class)
-	public JSONObject unauthenticatedException() {
-		return ResultUtil.errorJson(ErrorCodeEnum.E_20001);
+	public JasonResult unauthenticatedException() {
+		return JasonResult.fail(ErrorCodeEnum.E_20001);
 	}
 }

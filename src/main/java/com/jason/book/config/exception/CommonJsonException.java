@@ -2,7 +2,7 @@ package com.jason.book.config.exception;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jason.book.constants.ErrorCodeEnum;
-import com.jason.book.utils.ResultUtil;
+import com.jason.book.utils.JasonResult;
 
 /**
  * TODO:本系统使用的自定义错误类
@@ -12,7 +12,7 @@ import com.jason.book.utils.ResultUtil;
  * Created by Jason.Fu on 2020/5/13.
  */
 public class CommonJsonException extends RuntimeException{
-    private JSONObject resultJson;
+    private JasonResult resultJson;
 
     /**
      * 调用时可以在任何代码处直接throws这个Exception,
@@ -21,14 +21,14 @@ public class CommonJsonException extends RuntimeException{
      * @param errorEnum 以错误的ErrorEnum做参数
      */
     public CommonJsonException(ErrorCodeEnum errorEnum) {
-        this.resultJson = ResultUtil.errorJson(errorEnum);
+        this.resultJson = JasonResult.fail(errorEnum);
     }
 
-    public CommonJsonException(JSONObject resultJson) {
+    public CommonJsonException(JasonResult resultJson) {
         this.resultJson = resultJson;
     }
 
-    public JSONObject getResultJson() {
+    public JasonResult getResultJson() {
         return resultJson;
     }
 }

@@ -1,7 +1,15 @@
 package com.jason.book.service;
 
+import com.jason.book.domain.Permissions;
+import com.jason.book.domain.Role;
 import com.jason.book.domain.User;
 import com.alibaba.fastjson.JSONObject;
+import com.jason.book.domain.vo.UserVo;
+import com.jason.book.utils.One2Many;
+import com.jason.book.utils.PageDto;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * TODO:
@@ -10,18 +18,51 @@ import com.alibaba.fastjson.JSONObject;
  */
 public interface IUserService {
 
-    public JSONObject getUserByName(JSONObject jsonObject);
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return
+     */
+    public User getUserByName(String username);
 
-    public JSONObject addUser(JSONObject jsonObject);
+    /**
+     * 添加新用户
+     * @param user
+     * @return
+     */
+    public int addUser(UserVo user);
 
-    public JSONObject deleteByPrimaryKey(JSONObject jsonObject);
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    public int deleteByPrimaryKey(Integer userId);
 
-    public JSONObject updateByPrimaryKey(JSONObject jsonObject);
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    public int updateByPrimaryKey(UserVo user);
 
-    public JSONObject getUserPermissions(JSONObject jsonObject);
+    /**
+     * 获取用户权限
+     * @param userName
+     * @return
+     */
+    public One2Many getUserPermissions(String userName);
 
-    public JSONObject getAllPermissions();
+    /**
+     * 获取所有权限列表
+     * @return
+     */
+    public List<Permissions> getAllPermissions();
 
-    public JSONObject getAllRoles();
+    /**
+     * 获取角色列表
+     * @return
+     */
+    public List<Role> getAllRoles();
 
 }
