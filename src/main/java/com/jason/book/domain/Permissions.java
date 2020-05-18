@@ -2,12 +2,14 @@ package com.jason.book.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * TODO: 权限类
  * <p>
  * Created by Jason.Fu on 2020/5/11.
  */
-public class Permissions {
+public class Permissions implements Serializable {
     // 权限id
     @ApiModelProperty(value = "权限id", name = "id")
     private Integer id;

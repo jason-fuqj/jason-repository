@@ -26,4 +26,8 @@ public class Constants {
 	 */
 	public static final String SESSION_USER_INFO = "userInfo";
 	public static final String SESSION_USER_PERMISSION = "userPermission";
+
+	public static final String CACHE_KEY = "shiro:cache:";
+	public static final String SESSION_KEY = "shiro:session:";
+	public static final String ID_KEY = "userName";
 }

@@ -33,6 +33,13 @@ public class BorrowServiceImpl implements IBorrowService {
     public int borrowBook(BorrowHistoryVo borrowHistoryVo) {
         BorrowHistory borrowHistory = new BorrowHistory();
         BeanUtils.copyProperties(borrowHistoryVo,borrowHistory);
+        Map map = new HashMap();
+        map.put("userId",borrowHistoryVo.getUserId());
+        map.put("bookId",borrowHistoryVo.getBookId());
+        BorrowHistory query = borrowHistoryMapper.getBorrowHistory(map);
+        if(query != null){
+            return 0;
+        }
         return borrowHistoryMapper.borrowBook(borrowHistory);
     }
 

@@ -1,4 +1,4 @@
-package com.jason.book.config;
+package com.jason.book.config.shiro;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -10,7 +10,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -34,6 +33,11 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     PermissionMapper permissionMapper;
 
+    /**
+     * 授权
+     * @param principalCollection
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 
@@ -55,16 +59,21 @@ public class ShiroRealm extends AuthorizingRealm {
         return authorizationInfo;
     }
 
+    /**
+     * 认证
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         // 加这一步的目的是在Post请求的时候会先进认证，然后在到请求
         if (authenticationToken.getPrincipal() == null) {
-            throw new UnauthenticatedException();
+            return null;
         }
         // 获取用户名
         String userName = authenticationToken.getPrincipal().toString();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("userName",userName);
+
         // 获取用户信息
         User user = userMapper.selectByName(userName);
         if (user == null) {

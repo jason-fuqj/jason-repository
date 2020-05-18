@@ -8,8 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * 项目启动类
+ */
 @SpringBootApplication
-//@MapperScan("com.jason.book.mapper")
 @EnableTransactionManagement
 public class BookApplication {
 

@@ -3,6 +3,7 @@ package com.jason.book.domain;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  * <p>
  * Created by Jason.Fu on 2020/5/9.
  */
-public class User {
+public class User implements Serializable {
     // 用户ID
     @ApiModelProperty(value = "用户ID", name = "userId")
     private Integer userId;

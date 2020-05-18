@@ -43,7 +43,7 @@ public class LoginController {
     @ApiOperation(value = "退出登录",notes = "用户退出登录接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true ,dataType = "string")})
-    @RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
+    @PostMapping("/logout")
     public JasonResult logout( @RequestParam(name = "userName") String userName) {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();

@@ -23,6 +23,6 @@ public interface BorrowHistoryMapper {
 
     List<BorrowHistory> selectBorrowByPage(Map paramMap);
 
-    int getCount(JSONObject jsonObject);
+    BorrowHistory getBorrowHistory(Map paramMap);
 
 }

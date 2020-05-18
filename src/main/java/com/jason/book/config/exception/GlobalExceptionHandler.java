@@ -1,8 +1,11 @@
 package com.jason.book.config.exception;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jason.book.constants.Constants;
 import com.jason.book.constants.ErrorCodeEnum;
+import com.jason.book.domain.User;
 import com.jason.book.utils.JasonResult;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -10,6 +13,7 @@ import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,7 +46,12 @@ public class GlobalExceptionHandler {
 				return JasonResult.fail(ErrorCodeEnum.E_20001);
 			}
 		}
-		return JasonResult.fail(ErrorCodeEnum.E_20001);
+		User object = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER_INFO);
+		if(object == null){
+			return JasonResult.fail(ErrorCodeEnum.E_20001);
+		}
+
+		return JasonResult.fail(ErrorCodeEnum.E_400);
 	}
 
 	/**

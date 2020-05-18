@@ -2,6 +2,7 @@ package com.jason.book.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import java.util.Set;
  * <p>
  * Created by Jason.Fu on 2020/5/11.
  */
-public class Role {
+public class Role implements Serializable {
     // 角色id
     @ApiModelProperty(value = "角色id", name = "roleId")
     private Integer roleId;
