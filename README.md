@@ -5,6 +5,7 @@
     springboot,
     mybatis,
     Shiro,
+    Redis,
     Swagger2
     <p>
 3、数据库：
@@ -13,8 +14,9 @@
 4、使用步骤：<p>
     (1)从Github上拉取项目到本地<p>
     (2)执行初始化数据库脚本，脚本位于resources/sql目录下的bookdb.sql<p>
-    (3)修改数据库配置，修改application-xxx.properties<p>
-    (4)启动项目，运行BookApplication.java类<p>
+    (3)修改数据库配置信息，位置位于application-xxx.properties<p>
+    (4)修改Redis配置信息，位置位于application-xxx.properties<p>
+    (5)启动项目，运行BookApplication.java类<p>
 5、打开浏览器，输入：localhost:8080/swagger-ui.html，打开swagger页面<p>
 6、点击页面上的【Authorize】按钮，输入需要认证的token信息“Authorization”<p>
 7、测试账号：<p>
